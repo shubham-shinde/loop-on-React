@@ -1,0 +1,147 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.navbar {
+  background-color: #414141;
+  height:10vh;
+}
+.navbar > div {
+  padding-top:0px;
+  width:100%;
+}
+.navbar > div > img {
+  padding-left: 20px;
+  height:50px;
+  width:100px;
+  padding-bottom: 7px;
+}
+.navbar > div > span {
+  padding-left:70%;
+}
+#lowerpart {
+  background-color: #222;
+  height:90vh;
+}
+#addevent {
+  text-align: center;
+}
+#addevent > input {
+  text-align: center;
+  margin:80px 0 0 0;
+  height:32px;
+  width:500px;
+}
+#add {
+  color:green;
+  margin:0 0 0 20px;
+  display: inline;
+  padding-top: 0px;  
+}
+.remove {
+  color:red;
+}
+.edit {
+  color:orange;
+}
+.tick {
+  color:green;
+}
+.showtext {
+  text-align: center;
+}
+.addedtext {
+  height:32px;
+  display: inline-block;
+  width:565px;
+  background-color:white;
+}
+.button {
+  text-align: center;
+}
+.buttoncont {
+  padding-left: 400px;
+  padding-top:20px;
+}
+.buttoncont > div {
+  margin-left: 15px;
+  display: inline-block;
+  height:35px;
+  width:35px;
+  background-color: #414141;
+  border-radius: 4px;
+}
+.buttoncont > div > .edit,.remove,.tick{
+  text-align: center;
+  padding-top:7px;
+  font-size:1.5em;
+}
+.editingdom > input {
+  text-align: center;
+  display: inline-block;
+  height:32px;
+  width:500px;
+}
+.editingdom > div {
+  margin-left: 15px;
+  display: inline-block;
+  height:35px;
+  width:35px;
+  background-color: #414141;
+  border-radius: 4px;
+}
+.editingdom > div > .save{
+  text-align: center;
+  padding-top:7px;
+  font-size:1.5em;
+}
+#add {
+  margin-left: 15px;
+  display: inline-block;
+  height:35px;
+  width:35px;
+  background-color:green;
+  border-radius: 4px;
+}
+.addbut {
+  text-align: center;
+  color:white;
+  padding-top:7px;
+  font-size:1.5em;
+}
+.showtext {
+  margin-top:50px;
+}
+.editingdom {
+  margin-top:50px;
+  margin-bottom: 110px;
+}
+#addevent > h1 {
+  color:white;
+  font-size: 130%;
+  padding-top: 30px;
+}
