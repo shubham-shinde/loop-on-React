@@ -5,16 +5,34 @@ class Application extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            processTask:"default task",
             task:[],
             total:0,
             completed:0,
         };
     this.onTick = this.onTick.bind(this);
     this.addTask = this.addTask.bind(this);
+    this.addOnChange = this.addOnChange.bind(this);
     }
-    addTask(event) {
-        console.log(event.target.getAttribute('id'));
-        var newTask= document.getElementById('addValue').value;
+    addOnChange(event) {
+        const task = event.target.value;
+        this.setState(Object.assign({},{processTask:task}));
+        console.log(event.which);
+        if (event.which === 13) {
+            this.onEnter(event);
+        }
+    }
+    onEnter(event) {
+        if (event.target.getAttribute('id') === "addValue") {
+            this.addTask();
+        }
+        else if (event.target.getAttribute('id') === "edited") {
+            this.save();
+        }
+    }
+    addTask() {
+       // console.log(event.target.getAttribute('id'));
+        var newTask= this.state.processTask;
         const newState = Object.assign({},this.state);
         newState.task = [{data:newTask,edit:false},...newState.task];
         newState.total +=1;
@@ -34,7 +52,7 @@ class Application extends Component {
     }
     save(key) {
        // const key = event.target.tagName.getAttribute('key');
-        var newTask= document.getElementById('edited').value;
+        var newTask= this.state.processTask;
         const newState = Object.assign({},this.state);
         newState.task[key] = {data:newTask,edit:false};
         this.setState(newState);
@@ -77,12 +95,10 @@ class Application extends Component {
                 else {
                     return (
                         <div key={index} className="editingdom">
-                          <input type='text' id="edited" defaultValue={data.data}  onKeyDown={
-                                (event) => {
-                                if(event.which === 13) {
-                                    return this.save(index);
-                                }}
-                            }
+                          <input type='text' 
+                            id="edited" 
+                            defaultValue={data.data} 
+                            onKeyUp={this.addOnChange} 
                           />
                           <div onClick={() => this.save(index)} key={index}>
                             <i class="fas fa-check save"></i>
@@ -97,12 +113,10 @@ class Application extends Component {
     render() {
         return(
             <div id ="addevent">
-              <input type='text' id="addValue" placeholder="Add another task"  onKeyDown={
-                    (event) => {
-                    if(event.which === 13) {
-                        return this.addTask(event);
-                    }}
-                }
+              <input type='text' 
+                id="addValue" 
+                placeholder="Add another task" 
+                onKeyUp={this.addOnChange}
               />
               <div id="add" onClick={(event) => this.addTask(event)}>  
                 <i class="fas fa-plus addbut"></i>
