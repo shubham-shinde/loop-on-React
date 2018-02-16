@@ -45,7 +45,7 @@
 }
 #lowerpart {
   background-color: #222;
-  height:90vh;
+  min-height:90vh;
 }
 #addevent {
   text-align: center;
@@ -55,6 +55,7 @@
   margin:80px 0 0 0;
   height:32px;
   width:500px;
+  background-color:lightgray;
 }
 #add {
   color:green;
@@ -75,10 +76,12 @@
   text-align: center;
 }
 .addedtext {
+  padding-left:20px;
+  font-weight: bold;
+  background-color: lightgrey;
   height:32px;
   display: inline-block;
   width:565px;
-  background-color:white;
 }
 .button {
   text-align: center;

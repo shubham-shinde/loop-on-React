@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './../App.css';
-import DisplayTask from '../constainer/taskList';
+import DisplayTask from '../components/taskList';
 
 class Application extends Component {
     constructor(props) {
