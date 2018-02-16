@@ -1,8 +1,21 @@
 {
+  "author": "shubham-shinde",
   "name": "loop",
   "version": "0.1.0",
-  "private": true,
+  "main": "loop-on-react",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shubham-shinde/loop-on-React"
+  },
+  "keywords": [
+    "shubham",
+    "shinde",
+    "react",
+    "loop",
+    "loop-on-react"
+  ],
   "dependencies": {
+    "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-scripts": "1.1.1",
