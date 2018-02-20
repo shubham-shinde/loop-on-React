@@ -15,6 +15,7 @@ class Application extends Component {
     this.addTask = this.addTask.bind(this);
     this.addOnChange = this.addOnChange.bind(this);
     this.remove=this.remove.bind(this);
+    this.save= this.save.bind(this);
     }
     addOnChange(event) {
         const task = event.target.value;
@@ -27,6 +28,10 @@ class Application extends Component {
         if (event.target.getAttribute('id') === "addValue") {
             this.addTask();
         }
+        console.log(event.target.getAttribute('className'));
+        if (event.target.getAttribute('className') === "addedText") {
+            this.save(event);
+        }
     }
     addTask(event) {
         const newState = Object.assign({},this.state);
@@ -37,7 +42,7 @@ class Application extends Component {
         this.setState(newState);
     }
     remove(event) {
-        const index = event.target.getAttribute('data-id');
+        const index = Number(event.target.getAttribute('data-id'));
         console.log(index);
         const state = Object.assign({},this.state)
         const old = state.task;
@@ -49,20 +54,17 @@ class Application extends Component {
         this.setState(Object.assign({},{task:newState,total:total,completed:completed}));
     }
     save(event) {
-       // const key = event.target.tagName.getAttribute('key');
-        // console.log(key);
-        // const newTask= this.state.processTask;
-        // console.log(newTask);
-        // const newState = Object.assign({},this.state);
-        // console.log(newState);
-        // newState.task[key] = {data:newTask,edit:false};
-        // console.log(newState);
+        const key = event.target.getAttribute('data-id');
+        const newState = Object.assign({},this.state);
+        const newTask= newState.processTask;
+        newState.task[key] = {data:newTask,edit:false};
+        this.setState(newState);
     }
-    edit(event) {
-       // const key = event.target.tagName.getAttribute('key');
-        // const newState = Object.assign({},this.state);
-        // newState.task[key].edit = true;
-        // this.setState(newState);
+    edit = (event) => {
+        const key = event.target.getAttribute('data-id');
+        const newState = Object.assign({},this.state);
+        newState.task[key].edit = true;
+        this.setState(newState);
     }
     onTick(event) {
         const index = event.target.getAttribute('data-id');
@@ -86,6 +88,7 @@ class Application extends Component {
                     remove= {this.remove}
                     onTick= {this.onTick}
                     edit= {this.edit}
+                    save= {this.save}
                 />
             </div>
         );

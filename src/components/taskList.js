@@ -1,14 +1,15 @@
 import React,{Component} from 'react';
 import propTypes from  'prop-types';
 
-const DisplayTask = ({addOnChange,addTask,state,remove,onTick,edit}) => {
-    function buttonfn(data, index) {
-        return (
-            <div key={index} className="showtext">
+const DisplayTask = ({addOnChange,addTask,state,remove,onTick,edit,save}) => {
+    const buttons = (data, index) => {
+        if (!data.edit) {
+            return (
+                <div key={index} className="showtext">
                 <input type="text" 
                     readOnly={!data.edit} 
                     className="addedtext" 
-                    value={data.data} 
+                    value={data.data}
                     onKeyUp={addOnChange}
                 />
                 <div className="buttoncont">
@@ -23,8 +24,38 @@ const DisplayTask = ({addOnChange,addTask,state,remove,onTick,edit}) => {
                     </div>
                 </div>
             </div>
+            );
+        }
+        else {
+            return (
+                <div key={index} className="showtext">
+                <input type="text" 
+                    readOnly={!data.edit} 
+                    className="addedtext" 
+                    defaultValue={data.data}
+                    onKeyUp={addOnChange}
+                />
+                <div className="buttoncont">
+                    <div data-id={index} onClick={edit} style={{visibility:"hidden"}}>
+                        <i className="fas fa-pencil-alt edit" data-id={index}></i>  
+                    </div>
+                    <div onClick={remove} data-id={index} style={{visibility:"hidden"}}>
+                        <i className="fas fa-times remove" data-id={index}></i>
+                    </div>
+                    <div onClick={save} data-id={index}>   
+                        <i className="fas fa-check tick" data-id={index}></i>
+                    </div>
+                </div>
+            </div>
+            );
+        }
+    };
+
+    function buttonfn(data, index) {
+        return (
+            buttons(data, index)
         );
-    }
+    };
 
     return(
         <div id ="addevent">
@@ -41,7 +72,7 @@ const DisplayTask = ({addOnChange,addTask,state,remove,onTick,edit}) => {
                 {state.task.map(buttonfn)}
           </div>
         </div>
-    )
+    );
 };
 
 DisplayTask.prototype = {
@@ -51,6 +82,7 @@ DisplayTask.prototype = {
     remove:propTypes.func.isRequired,
     onTick:propTypes.func.isRequired,
     edit:propTypes.func.isRequired,
+    save:propTypes.func.isRequired,
 }
 
 export default DisplayTask;
