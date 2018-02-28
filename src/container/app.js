@@ -1,79 +1,48 @@
 import React, { Component } from 'react';
 import './../App.css';
 import DisplayTask from '../components/taskList';
+import store from '../store/index'; 
 
 class Application extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            processTask:"default task",
-            task:[],
-            total:0,
-            completed:0,
-        };
-    this.onTick = this.onTick.bind(this);
-    this.addTask = this.addTask.bind(this);
-    this.addOnChange = this.addOnChange.bind(this);
-    this.remove=this.remove.bind(this);
-    this.save= this.save.bind(this);
-    }
     addOnChange(event) {
         const task = event.target.value;
-        this.setState(Object.assign({},{processTask:task}));
-        if (event.which === 13) {
-            this.onEnter(event);
-        }
-    }
-    onEnter(event) {
-        if (event.target.getAttribute('id') === "addValue") {
-            this.addTask();
-        }
-        console.log(event.target.getAttribute('className'));
-        if (event.target.getAttribute('className') === "addedText") {
-            this.save(event);
-        }
+        store.dispatch({
+            type: 'ADD_ON_CHANGE',
+            key : event.which,
+            task : event.target.value,
+            buttonId : event.target.getAttribute('id'),
+            buttonClass : event.target.getAttribute('className'),
+            getId : event.target.getAttribute('data-id')
+        });
     }
     addTask(event) {
-        const newState = Object.assign({},this.state);
-        const newTask = newState.processTask;
-        newState.task = [{data:newTask,edit:false,ticked:false,},...this.state.task];
-        newState.total +=1;
-        console.log(newState);
-        this.setState(newState);
+        store.dispatch({
+            type : 'ADD_TASK'
+        });
     }
     remove(event) {
-        const index = Number(event.target.getAttribute('data-id'));
-        console.log(index);
-        const state = Object.assign({},this.state)
-        const old = state.task;
-        console.log(old);
-        const completed = old[index].ticked ? state.completed -=1 : state.completed;
-        const total = state.total-1;
-        console.log(old.slice(index+1,old.length).prototype);    //gives null on passing 1 out of 2
-        const newState = [...old.slice(0,index),...old.slice(index+1,old.length)];
-        this.setState(Object.assign({},{task:newState,total:total,completed:completed}));
+        store.dispatch({
+            type : 'REMOVE',
+            index : Number(event.target.getAttribute('data-id'))
+        });
     }
     save(event) {
-        const key = event.target.getAttribute('data-id');
-        const newState = Object.assign({},this.state);
-        const newTask= newState.processTask;
-        newState.task[key] = {data:newTask,edit:false};
-        this.setState(newState);
+        store.dispatch({
+            type : 'SAVE',
+            key : event.target.getAttribute('data-id')
+        });
     }
     edit = (event) => {
-        const key = event.target.getAttribute('data-id');
-        const newState = Object.assign({},this.state);
-        newState.task[key].edit = true;
-        this.setState(newState);
+        store.dispatch({
+            type : 'EDIT',
+            key : event.target.getAttribute('data-id')
+        });
     }
     onTick(event) {
-        const index = event.target.getAttribute('data-id');
-        const complete= Object.assign({},this.state);
-        complete.task[index].ticked= true;
-        const total = complete.task.reduce(function (total,data){
-            return total = (data.ticked) ? total+1 : total; 
-        },0)
-        this.setState(Object.assign({},{completed:total}));
+        store.dispatch({
+            type : 'ON_TICK',
+            index : event.target.getAttribute('data-id')
+        });
      }
 
     render() {
@@ -83,7 +52,7 @@ class Application extends Component {
                 <DisplayTask 
                     addOnChange={this.addOnChange} 
                     addTask={this.addTask} 
-                    state={this.state} 
+                    state={store.getState()} 
                     buttonfn={this.buttonfn} 
                     remove= {this.remove}
                     onTick= {this.onTick}
